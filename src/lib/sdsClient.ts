@@ -1,13 +1,9 @@
-import { createClient } from '@somnia-chain/streams'
+import { SDK } from '@somnia-chain/streams'
 import { somniaTestnetChain } from './web3'
 import { PublicClient, createPublicClient, http } from 'viem'
 
-export const sdsClient = createClient({
+export const sdsClient = new SDK({
   chain: somniaTestnetChain,
-  transport: {
-    type: 'http',
-    url: somniaTestnetChain.rpcUrls.default.http[0],
-  },
 })
 
 // Create a Viem public client for manual polling fallback

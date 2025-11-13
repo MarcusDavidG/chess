@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback } from 'react'
 import { useAccount, useWriteContract } from 'wagmi'
-import { ChessBoard } from './ChessBoard'
+import ChessBoard from './ChessBoard'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import { subscribeToGameEvents } from '@/lib/sdsClient'
