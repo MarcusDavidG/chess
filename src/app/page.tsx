@@ -8,8 +8,6 @@ import { Card } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import GameRoom from '@/components/GameRoom'
 import LeaderboardDisplay from '@/components/LeaderboardDisplay'
-import { Moon, Sun } from 'lucide-react'
-import { useTheme } from '@/context/ThemeContext'
 
 // Contract address - replace with deployed address
 const CONTRACT_ADDRESS = '0x5f481427Dc681635dDEE38255da2E98FcaC90CeE' // Updated after deployment
@@ -18,22 +16,15 @@ export default function Home() {
   const { isConnected } = useAccount()
   const [gameId, setGameId] = useState<number | null>(null)
   const [opponentAddress, setOpponentAddress] = useState('')
-  const { theme, toggleTheme } = useTheme()
 
   if (gameId) {
     return <GameRoom gameId={gameId} contractAddress={CONTRACT_ADDRESS} />
   }
 
   return (
-    <div className="min-h-screen bg-background text-foreground transition-colors">
+    <div className="min-h-screen bg-background text-foreground">
       <div className="max-w-4xl mx-auto p-4">
         <header className="text-center mb-8">
-          <div className="flex justify-between items-center mb-4">
-            <div></div> {/* Spacer */}
-            <Button onClick={toggleTheme} variant="outline" size="icon">
-              {theme === 'dark' ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
-            </Button>
-          </div>
           <h1 className="text-4xl font-bold text-foreground mb-2">
             Quantum Chess Arena
           </h1>

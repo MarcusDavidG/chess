@@ -6,8 +6,7 @@ import ChessBoard from './ChessBoard'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import { Chess } from 'chess.js'
-import { Play, Pause, RotateCcw, Square, Moon, Sun } from 'lucide-react'
-import { useTheme } from '@/context/ThemeContext'
+import { Play, Pause, RotateCcw, Square } from 'lucide-react'
 
 interface GameRoomProps {
   gameId: number
@@ -25,7 +24,6 @@ export default function GameRoom({ gameId, contractAddress }: GameRoomProps) {
   const [blackTime, setBlackTime] = useState(600)
   const [currentTurn, setCurrentTurn] = useState<'w' | 'b'>('w')
   const timerRef = useRef<NodeJS.Timeout | null>(null)
-  const { theme, toggleTheme } = useTheme()
 
   const { writeContract } = useWriteContract()
 
@@ -147,9 +145,6 @@ export default function GameRoom({ gameId, contractAddress }: GameRoomProps) {
       <div className="max-w-6xl mx-auto p-4">
         <div className="flex justify-between items-center mb-6">
           <h1 className="text-3xl font-bold">Quantum Chess Arena</h1>
-          <Button onClick={toggleTheme} variant="outline" size="icon">
-            {theme === 'dark' ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
-          </Button>
         </div>
 
         <Card className="p-6">
