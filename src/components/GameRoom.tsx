@@ -176,7 +176,7 @@ export default function GameRoom({ gameId, contractAddress }: GameRoomProps) {
               <ChessBoard
                 gameId={gameId}
                 onMove={handleMove}
-                isPlayerTurn={!gameOver && !isPaused && chess.turn() === 'w'}
+                isPlayerTurn={!gameOver && !isPaused}
                 gameState={{
                   player1: address || '',
                   player2: '',
