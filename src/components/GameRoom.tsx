@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import { Chess } from 'chess.js'
 import { Play, Pause, RotateCcw, Square, Moon, Sun } from 'lucide-react'
+import { useTheme } from '@/context/ThemeContext'
 
 interface GameRoomProps {
   gameId: number
@@ -19,12 +20,12 @@ export default function GameRoom({ gameId, contractAddress }: GameRoomProps) {
   const [gameOver, setGameOver] = useState(false)
   const [winner, setWinner] = useState<boolean | null>(null)
   const [submitting, setSubmitting] = useState(false)
-  const [isDark, setIsDark] = useState(false)
   const [isPaused, setIsPaused] = useState(false)
   const [whiteTime, setWhiteTime] = useState(600) // 10 minutes in seconds
   const [blackTime, setBlackTime] = useState(600)
   const [currentTurn, setCurrentTurn] = useState<'w' | 'b'>('w')
   const timerRef = useRef<NodeJS.Timeout | null>(null)
+  const { theme, toggleTheme } = useTheme()
 
   const { writeContract } = useWriteContract()
 
@@ -112,11 +113,6 @@ export default function GameRoom({ gameId, contractAddress }: GameRoomProps) {
     })
   }
 
-  const toggleTheme = () => {
-    setIsDark(!isDark)
-    document.documentElement.classList.toggle('dark')
-  }
-
   const togglePause = () => {
     setIsPaused(!isPaused)
   }
@@ -142,13 +138,17 @@ export default function GameRoom({ gameId, contractAddress }: GameRoomProps) {
     return `${mins}:${secs.toString().padStart(2, '0')}`
   }
 
+  const goToDashboard = () => {
+    window.location.href = '/'
+  }
+
   return (
-    <div className={`min-h-screen ${isDark ? 'dark' : ''} bg-background text-foreground`}>
+    <div className="min-h-screen bg-background text-foreground">
       <div className="max-w-6xl mx-auto p-4">
         <div className="flex justify-between items-center mb-6">
           <h1 className="text-3xl font-bold">Quantum Chess Arena</h1>
           <Button onClick={toggleTheme} variant="outline" size="icon">
-            {isDark ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+            {theme === 'dark' ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
           </Button>
         </div>
 
@@ -243,7 +243,7 @@ export default function GameRoom({ gameId, contractAddress }: GameRoomProps) {
                     <Button onClick={() => handleSubmitScore(winner === true)} disabled={submitting} className="w-full">
                       {submitting ? 'Submitting...' : 'Submit Score'}
                     </Button>
-                    <Button onClick={resetGame} variant="outline" className="w-full">
+                    <Button onClick={goToDashboard} variant="outline" className="w-full">
                       Live Dashboard
                     </Button>
                   </div>

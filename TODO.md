@@ -1,8 +1,8 @@
 # Quantum Chess Arena - Current Tasks
 
 ## 1. UI Enhancements (High Priority)
-- [ ] Add dark mode support to landing page with toggle button
-- [ ] Add "Live Dashboard" button in GameRoom after game ends for navigation back to dashboard
+- [x] Add dark mode support to landing page with toggle button
+- [x] Add "Live Dashboard" button in GameRoom after game ends for navigation back to dashboard
 - [ ] Change "Start Local Game" button text to "Start Game"
 
 ## Implementation Plan
@@ -11,6 +11,6 @@
 - Change button text in landing page
 
 ## Followup Steps
-- Test dark mode toggle on landing page
-- Test navigation back to dashboard from game room
-- Commit and push changes to GitHub
+- [x] Test dark mode toggle on landing page
+- [x] Test navigation back to dashboard from game room
+- [ ] Commit and push changes to GitHub
