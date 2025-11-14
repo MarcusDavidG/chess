@@ -180,7 +180,7 @@ export default function ChessBoard({ onMove, isPlayerTurn, gameState }: ChessBoa
     return (
       <div
         key={squareName}
-        className={`w-10 h-10 sm:w-12 sm:h-12 lg:w-14 lg:h-14 flex items-center justify-center border ${
+        className={`w-10 h-10 sm:w-12 sm:h-12 lg:w-14 lg:h-14 flex items-center justify-center ${
           isLight ? 'bg-amber-100 dark:bg-amber-200' : 'bg-amber-800 dark:bg-amber-900'
         } ${isSelected ? 'ring-2 ring-blue-500' : ''} ${
           isPossibleMove ? 'ring-2 ring-green-500' : ''
