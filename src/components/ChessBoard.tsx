@@ -210,30 +210,78 @@ export default function ChessBoard({ onMove, isPlayerTurn, gameState }: ChessBoa
   }
 
   return (
-    <div className="bg-card border-2 border-border rounded-xl overflow-hidden shadow-2xl flex justify-center">
-      <div className="grid grid-cols-8 gap-0 w-fit">
-        {board.map((row, rowIndex) =>
-          row.map((square, colIndex) => renderSquare(square, rowIndex, colIndex))
-        )}
+    <div className="relative">
+      <div className="bg-gradient-to-br from-card via-card to-amber-900/10 border-4 border-amber-600/30 dark:border-amber-500/20 rounded-2xl overflow-hidden shadow-2xl shadow-amber-900/20 p-4 md:p-6">
+        <div className="grid grid-cols-8 gap-0 w-fit mx-auto relative">
+          {board.map((row, rowIndex) =>
+            row.map((square, colIndex) => renderSquare(square, rowIndex, colIndex))
+          )}
+        </div>
+        
+        {/* Board status indicators */}
+        <div className="mt-4 text-center space-y-2">
+          {chess.isCheckmate() && (
+            <div className="p-3 rounded-lg bg-gradient-to-r from-red-500/20 to-pink-500/20 border-2 border-red-500/50 animate-pulse">
+              <p className="text-red-600 dark:text-red-400 font-bold text-lg">🏁 Checkmate!</p>
+            </div>
+          )}
+          {chess.isStalemate() && (
+            <div className="p-3 rounded-lg bg-gradient-to-r from-yellow-500/20 to-amber-500/20 border-2 border-yellow-500/50">
+              <p className="text-yellow-600 dark:text-yellow-400 font-bold text-lg">🤝 Stalemate!</p>
+            </div>
+          )}
+          {chess.inCheck() && !chess.isCheckmate() && (
+            <div className="p-3 rounded-lg bg-gradient-to-r from-orange-500/20 to-red-500/20 border-2 border-orange-500/50 animate-pulse">
+              <p className="text-orange-600 dark:text-orange-400 font-bold text-lg">⚠️ Check!</p>
+            </div>
+          )}
+        </div>
       </div>
+      
+      {/* Promotion modal */}
       {promotionSquare && (
-        <div className="fixed inset-0 bg-black/50 dark:bg-black/70 flex items-center justify-center z-50">
-          <Card className="p-6 max-w-sm mx-4 bg-card border-border">
-            <h3 className="text-xl font-semibold mb-4 text-center text-foreground">Promote Pawn to:</h3>
-            <div className="flex justify-center space-x-3">
-              <Button onClick={() => handlePromotionSelect('q')} size="lg" className="text-2xl hover:scale-110 transition-transform">♕</Button>
-              <Button onClick={() => handlePromotionSelect('r')} size="lg" className="text-2xl hover:scale-110 transition-transform">♖</Button>
-              <Button onClick={() => handlePromotionSelect('b')} size="lg" className="text-2xl hover:scale-110 transition-transform">♗</Button>
-              <Button onClick={() => handlePromotionSelect('n')} size="lg" className="text-2xl hover:scale-110 transition-transform">♘</Button>
+        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm dark:bg-black/80 flex items-center justify-center z-50 animate-in fade-in duration-200">
+          <Card className="p-8 max-w-sm mx-4 bg-gradient-to-br from-card to-amber-500/10 border-2 border-amber-500/50 shadow-2xl shadow-amber-500/30 animate-in zoom-in duration-300">
+            <div className="text-center mb-6">
+              <div className="text-4xl mb-2">👑</div>
+              <h3 className="text-2xl font-bold bg-gradient-to-r from-amber-500 to-yellow-500 bg-clip-text text-transparent">
+                Promote Pawn
+              </h3>
+              <p className="text-sm text-muted-foreground mt-1">Choose your piece</p>
+            </div>
+            <div className="flex justify-center gap-3">
+              <Button 
+                onClick={() => handlePromotionSelect('q')} 
+                size="lg" 
+                className="w-16 h-16 text-3xl p-0 bg-gradient-to-br from-purple-500 to-pink-600 hover:from-purple-600 hover:to-pink-700 hover:scale-110 transition-all shadow-lg hover:shadow-xl"
+              >
+                ♕
+              </Button>
+              <Button 
+                onClick={() => handlePromotionSelect('r')} 
+                size="lg" 
+                className="w-16 h-16 text-3xl p-0 bg-gradient-to-br from-blue-500 to-cyan-600 hover:from-blue-600 hover:to-cyan-700 hover:scale-110 transition-all shadow-lg hover:shadow-xl"
+              >
+                ♖
+              </Button>
+              <Button 
+                onClick={() => handlePromotionSelect('b')} 
+                size="lg" 
+                className="w-16 h-16 text-3xl p-0 bg-gradient-to-br from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 hover:scale-110 transition-all shadow-lg hover:shadow-xl"
+              >
+                ♗
+              </Button>
+              <Button 
+                onClick={() => handlePromotionSelect('n')} 
+                size="lg" 
+                className="w-16 h-16 text-3xl p-0 bg-gradient-to-br from-amber-500 to-yellow-600 hover:from-amber-600 hover:to-yellow-700 hover:scale-110 transition-all shadow-lg hover:shadow-xl"
+              >
+                ♘
+              </Button>
             </div>
           </Card>
         </div>
       )}
-      <div className="mt-6 text-center space-y-2">
-        {chess.isCheckmate() && <p className="text-red-600 dark:text-red-400 font-bold text-lg">Checkmate!</p>}
-        {chess.isStalemate() && <p className="text-yellow-600 dark:text-yellow-400 font-bold text-lg">Stalemate!</p>}
-        {chess.inCheck() && <p className="text-orange-600 dark:text-orange-400 font-bold text-lg">Check!</p>}
-      </div>
     </div>
   )
 }

@@ -8,6 +8,8 @@ import { Card } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import GameRoom from '@/components/GameRoom'
 import LeaderboardDisplay from '@/components/LeaderboardDisplay'
+import { ThemeToggle } from '@/components/ThemeToggle'
+import { Crown, Zap, Shield, Trophy, Sparkles } from 'lucide-react'
 
 // Contract address - replace with deployed address
 const CONTRACT_ADDRESS = '0x5f481427Dc681635dDEE38255da2E98FcaC90CeE' // Updated after deployment
@@ -22,74 +24,140 @@ export default function Home() {
   }
 
   return (
-    <div className="min-h-screen bg-background text-foreground">
-      <div className="max-w-4xl mx-auto p-4">
-        <header className="text-center mb-8">
-          <h1 className="text-4xl font-bold text-foreground mb-2">
-            Quantum Chess Arena
-          </h1>
-          <p className="text-muted-foreground">
-            Real-time blockchain chess battles powered by Somnia Data Streams
-          </p>
-        </header>
-
-        <div className="flex justify-center mb-8">
-          <ConnectButton />
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <Card className="p-6">
-            <h2 className="text-2xl font-semibold mb-4">Start New Game</h2>
-            {isConnected ? (
-              <div className="space-y-4">
-                <div>
-                  <label className="block text-sm font-medium mb-2">
-                    Opponent Address (optional)
-                  </label>
-                  <Input
-                    type="text"
-                    placeholder="0x..."
-                    value={opponentAddress}
-                    onChange={(e) => setOpponentAddress(e.target.value)}
-                  />
-                </div>
-                <Button onClick={() => setGameId(Date.now())} className="w-full">
-                  Start Game
-                </Button>
-              </div>
-            ) : (
-              <p className="text-muted-foreground">Connect wallet to start playing</p>
-            )}
-          </Card>
-
-          <Card className="p-6">
-            <h2 className="text-2xl font-semibold mb-4 text-foreground">Leaderboard</h2>
-            <LeaderboardDisplay contractAddress={CONTRACT_ADDRESS} />
-          </Card>
-        </div>
-
-        <div className="mt-12 text-center">
-          <Card className="p-6">
-            <h3 className="text-xl font-semibold mb-4">About SDS Integration</h3>
-            <p className="text-muted-foreground mb-4">
-              This dApp uses Somnia Data Streams (SDS) for real-time synchronization of chess moves,
-              game states, and spectator updates. Experience instant blockchain gaming!
+    <div className="min-h-screen bg-gradient-to-br from-background via-background to-amber-950/10 dark:to-amber-500/5 text-foreground">
+      {/* Hero Section with Gradient */}
+      <div className="relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-amber-500/10 via-transparent to-purple-500/10 pointer-events-none"></div>
+        <div className="max-w-6xl mx-auto px-4 py-8">
+          {/* Theme Toggle - Top Right */}
+          <div className="absolute top-6 right-6 z-10">
+            <ThemeToggle />
+          </div>
+          
+          <header className="text-center mb-12 relative">
+            <div className="inline-block mb-4 animate-pulse">
+              <Crown className="w-16 h-16 text-amber-500 mx-auto" />
+            </div>
+            <h1 className="text-5xl md:text-7xl font-extrabold bg-gradient-to-r from-amber-500 via-yellow-500 to-amber-600 bg-clip-text text-transparent mb-4 tracking-tight">
+              Quantum Chess Arena
+            </h1>
+            <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto font-medium">
+              Real-time blockchain chess battles powered by{' '}
+              <span className="text-amber-500 font-bold">Somnia Data Streams</span>
             </p>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
-              <div>
-                <h4 className="font-semibold">Real-Time Moves</h4>
-                <p>Instant move synchronization via SDS streams</p>
+            <div className="flex items-center justify-center gap-4 mt-6 text-sm">
+              <div className="flex items-center gap-1 text-amber-500">
+                <Zap className="w-4 h-4" />
+                <span>Instant Sync</span>
               </div>
-              <div>
-                <h4 className="font-semibold">Live Spectating</h4>
-                <p>Watch games unfold in real-time</p>
+              <div className="flex items-center gap-1 text-purple-500">
+                <Shield className="w-4 h-4" />
+                <span>Blockchain Verified</span>
               </div>
-              <div>
-                <h4 className="font-semibold">On-Chain Validation</h4>
-                <p>All moves validated on Somnia Testnet</p>
+              <div className="flex items-center gap-1 text-emerald-500">
+                <Trophy className="w-4 h-4" />
+                <span>ELO Rankings</span>
               </div>
             </div>
-          </Card>
+          </header>
+
+          <div className="flex justify-center mb-12">
+            <div className="transform hover:scale-105 transition-transform duration-200">
+              <ConnectButton />
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
+            {/* Start Game Card */}
+            <Card className="p-8 bg-gradient-to-br from-card via-card to-amber-500/5 border-2 border-amber-500/20 hover:border-amber-500/40 transition-all duration-300 hover:shadow-2xl hover:shadow-amber-500/10 transform hover:-translate-y-1">
+              <div className="flex items-center gap-2 mb-6">
+                <Sparkles className="w-6 h-6 text-amber-500" />
+                <h2 className="text-3xl font-bold bg-gradient-to-r from-amber-500 to-yellow-500 bg-clip-text text-transparent">
+                  Start New Game
+                </h2>
+              </div>
+              {isConnected ? (
+                <div className="space-y-6">
+                  <div>
+                    <label className="block text-sm font-semibold mb-3 text-foreground/90">
+                      Opponent Address (optional)
+                    </label>
+                    <Input
+                      type="text"
+                      placeholder="0x..."
+                      value={opponentAddress}
+                      onChange={(e) => setOpponentAddress(e.target.value)}
+                      className="bg-background/50 border-2 border-amber-500/20 focus:border-amber-500 transition-colors h-12 text-base"
+                    />
+                  </div>
+                  <Button 
+                    onClick={() => setGameId(Date.now())} 
+                    className="w-full h-14 text-lg font-bold bg-gradient-to-r from-amber-500 to-yellow-600 hover:from-amber-600 hover:to-yellow-700 text-white shadow-lg shadow-amber-500/25 hover:shadow-xl hover:shadow-amber-500/40 transition-all duration-300 transform hover:scale-105"
+                  >
+                    <Trophy className="w-5 h-5 mr-2" />
+                    Start Game
+                  </Button>
+                  <p className="text-xs text-center text-muted-foreground mt-2">
+                    Play against AI or challenge friends
+                  </p>
+                </div>
+              ) : (
+                <div className="text-center py-8">
+                  <Shield className="w-12 h-12 text-muted-foreground/50 mx-auto mb-4" />
+                  <p className="text-muted-foreground text-lg">Connect your wallet to start playing</p>
+                </div>
+              )}
+            </Card>
+
+            {/* Leaderboard Card */}
+            <Card className="p-8 bg-gradient-to-br from-card via-card to-purple-500/5 border-2 border-purple-500/20 hover:border-purple-500/40 transition-all duration-300 hover:shadow-2xl hover:shadow-purple-500/10 transform hover:-translate-y-1">
+              <div className="flex items-center gap-2 mb-6">
+                <Trophy className="w-6 h-6 text-purple-500" />
+                <h2 className="text-3xl font-bold bg-gradient-to-r from-purple-500 to-pink-500 bg-clip-text text-transparent">
+                  Leaderboard
+                </h2>
+              </div>
+              <LeaderboardDisplay contractAddress={CONTRACT_ADDRESS} />
+            </Card>
+          </div>
+
+          {/* Features Section */}
+          <div className="mt-16">
+            <Card className="p-8 md:p-10 bg-gradient-to-br from-card via-card to-emerald-500/5 border-2 border-emerald-500/20 hover:border-emerald-500/40 transition-all duration-300 hover:shadow-2xl hover:shadow-emerald-500/10">
+              <div className="text-center mb-8">
+                <h3 className="text-3xl font-bold mb-3 bg-gradient-to-r from-emerald-500 to-teal-500 bg-clip-text text-transparent">
+                  Powered by Somnia Data Streams
+                </h3>
+                <p className="text-muted-foreground text-lg max-w-3xl mx-auto">
+                  Experience the future of on-chain gaming with real-time synchronization,
+                  instant move validation, and live spectating capabilities.
+                </p>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div className="text-center p-6 rounded-xl bg-gradient-to-br from-background/50 to-amber-500/5 border border-amber-500/20 hover:border-amber-500/40 transition-all duration-300 transform hover:scale-105 hover:shadow-lg">
+                  <div className="w-14 h-14 mx-auto mb-4 rounded-full bg-amber-500/10 flex items-center justify-center">
+                    <Zap className="w-7 h-7 text-amber-500" />
+                  </div>
+                  <h4 className="font-bold text-lg mb-2 text-foreground">Real-Time Moves</h4>
+                  <p className="text-sm text-muted-foreground">Instant move synchronization via SDS streams</p>
+                </div>
+                <div className="text-center p-6 rounded-xl bg-gradient-to-br from-background/50 to-purple-500/5 border border-purple-500/20 hover:border-purple-500/40 transition-all duration-300 transform hover:scale-105 hover:shadow-lg">
+                  <div className="w-14 h-14 mx-auto mb-4 rounded-full bg-purple-500/10 flex items-center justify-center">
+                    <Trophy className="w-7 h-7 text-purple-500" />
+                  </div>
+                  <h4 className="font-bold text-lg mb-2 text-foreground">Live Spectating</h4>
+                  <p className="text-sm text-muted-foreground">Watch games unfold in real-time</p>
+                </div>
+                <div className="text-center p-6 rounded-xl bg-gradient-to-br from-background/50 to-emerald-500/5 border border-emerald-500/20 hover:border-emerald-500/40 transition-all duration-300 transform hover:scale-105 hover:shadow-lg">
+                  <div className="w-14 h-14 mx-auto mb-4 rounded-full bg-emerald-500/10 flex items-center justify-center">
+                    <Shield className="w-7 h-7 text-emerald-500" />
+                  </div>
+                  <h4 className="font-bold text-lg mb-2 text-foreground">On-Chain Validation</h4>
+                  <p className="text-sm text-muted-foreground">All moves validated on Somnia Testnet</p>
+                </div>
+              </div>
+            </Card>
+          </div>
         </div>
       </div>
     </div>
