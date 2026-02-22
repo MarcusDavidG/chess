@@ -11,9 +11,15 @@ import LeaderboardDisplay from '@/components/LeaderboardDisplay'
 import { ThemeToggle } from '@/components/ThemeToggle'
 import { Crown, Zap, Shield, Trophy, Sparkles } from 'lucide-react'
 
-// Contract address - replace with deployed address
-const CONTRACT_ADDRESS = '0x5f481427Dc681635dDEE38255da2E98FcaC90CeE' // Updated after deployment
+// Application constants
+const CONTRACT_ADDRESS = '0x5f481427Dc681635dDEE38255da2E98FcaC90CeE';
+const APP_TITLE = 'Quantum Chess Arena';
+const APP_DESCRIPTION = 'Real-time blockchain chess battles powered by Somnia Data Streams';
 
+/**
+ * Main application page component
+ * Displays the landing page with game controls and leaderboard
+ */
 export default function Home() {
   const { isConnected } = useAccount()
   const [gameId, setGameId] = useState<number | null>(null)
@@ -39,11 +45,10 @@ export default function Home() {
               <Crown className="w-16 h-16 text-amber-500 mx-auto" />
             </div>
             <h1 className="text-5xl md:text-7xl font-extrabold bg-gradient-to-r from-amber-500 via-yellow-500 to-amber-600 bg-clip-text text-transparent mb-4 tracking-tight">
-              Quantum Chess Arena
+              {APP_TITLE}
             </h1>
             <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto font-medium">
-              Real-time blockchain chess battles powered by{' '}
-              <span className="text-amber-500 font-bold">Somnia Data Streams</span>
+              {APP_DESCRIPTION}
             </p>
             <div className="flex items-center justify-center gap-4 mt-6 text-sm">
               <div className="flex items-center gap-1 text-amber-500">
