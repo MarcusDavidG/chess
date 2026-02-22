@@ -38,6 +38,14 @@ const SQUARE_CLASSES = {
   POSSIBLE_MOVE: 'ring-4 ring-green-500 dark:ring-green-400',
 } as const;
 
+const PIECE_CLASSES = {
+  BASE: 'text-2xl sm:text-3xl lg:text-4xl select-none',
+  WHITE: 'text-white drop-shadow-lg',
+  BLACK: 'text-black dark:text-gray-900',
+  DRAGGABLE: 'cursor-grab hover:scale-110',
+  NON_DRAGGABLE: 'cursor-default',
+} as const;
+
 /**
  * Determines if a square should be light colored
  * @param rowIndex - The row index
