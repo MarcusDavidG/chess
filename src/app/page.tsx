@@ -17,6 +17,23 @@ const APP_TITLE = 'Quantum Chess Arena';
 const APP_DESCRIPTION = 'Real-time blockchain chess battles powered by Somnia Data Streams';
 
 /**
+ * Generates a unique game ID based on current timestamp
+ * @returns A unique game identifier
+ */
+const generateGameId = (): number => {
+  return Date.now();
+};
+
+/**
+ * Validates if an Ethereum address is properly formatted
+ * @param address - The address to validate
+ * @returns True if the address is valid
+ */
+const isValidEthereumAddress = (address: string): boolean => {
+  return /^0x[a-fA-F0-9]{40}$/.test(address);
+};
+
+/**
  * Main application page component
  * Displays the landing page with game controls and leaderboard
  */
@@ -25,8 +42,15 @@ export default function Home() {
   const [gameId, setGameId] = useState<number | null>(null)
   const [opponentAddress, setOpponentAddress] = useState('')
 
+  /**
+   * Handles starting a new chess game
+   */
+  const handleStartGame = () => {
+    setGameId(generateGameId());
+  };
+
   if (gameId) {
-    return <GameRoom gameId={gameId} contractAddress={CONTRACT_ADDRESS} />
+    return <GameRoom gameId={gameId} contractAddress={CONTRACT_ADDRESS} />;
   }
 
   return (
