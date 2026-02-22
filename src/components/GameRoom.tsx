@@ -80,6 +80,10 @@ export default function GameRoom({ gameId, contractAddress }: GameRoomProps) {
     }
   }, [currentTurn, gameOver, isPaused])
 
+  /**
+   * Handles chess move execution and game state updates
+   * @param move - The chess move in standard algebraic notation
+   */
   const handleMove = (move: string) => {
     try {
       const chessMove = chess.move(move)
