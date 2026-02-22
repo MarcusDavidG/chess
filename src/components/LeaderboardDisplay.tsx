@@ -4,6 +4,10 @@ import { useState, useEffect } from 'react'
 import { subscribeToLeaderboard } from '@/lib/sdsClient'
 import { Medal, TrendingUp, Star } from 'lucide-react'
 
+// Leaderboard constants
+const TOP_RANKS_COUNT = 3;
+const WIN_RATE_MULTIPLIER = 100;
+
 interface LeaderboardEntry {
   player: string
   rating: bigint
@@ -15,6 +19,11 @@ interface LeaderboardDisplayProps {
   contractAddress: string
 }
 
+/**
+ * Gets the appropriate rank badge for a leaderboard position
+ * @param index - The position index (0-based)
+ * @returns JSX element for the rank badge
+ */
 const getRankBadge = (index: number) => {
   const badges = [
     { icon: Medal, color: 'text-yellow-500', bg: 'bg-yellow-500/10', border: 'border-yellow-500/30', label: '1st' },
@@ -22,7 +31,7 @@ const getRankBadge = (index: number) => {
     { icon: Medal, color: 'text-amber-600', bg: 'bg-amber-600/10', border: 'border-amber-600/30', label: '3rd' },
   ]
   
-  if (index < 3) {
+  if (index < TOP_RANKS_COUNT) {
     const Badge = badges[index]
     return (
       <div className={`flex items-center gap-1.5 px-2 py-1 rounded-full ${Badge.bg} border ${Badge.border}`}>
@@ -39,9 +48,15 @@ const getRankBadge = (index: number) => {
   )
 }
 
+/**
+ * Calculates win rate percentage from games won and played
+ * @param won - Number of games won
+ * @param played - Total number of games played
+ * @returns Win rate as a percentage (0-100)
+ */
 const getWinRate = (won: bigint, played: bigint) => {
   if (played === BigInt(0)) return 0
-  return Number((won * BigInt(100)) / played)
+  return Number((won * BigInt(WIN_RATE_MULTIPLIER)) / played)
 }
 
 export default function LeaderboardDisplay({ contractAddress }: LeaderboardDisplayProps) {
