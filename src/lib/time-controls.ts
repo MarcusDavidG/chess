@@ -1,0 +1,1 @@
+export const TIME_CONTROLS = { BULLET: 60, BLITZ: 300, RAPID: 900, CLASSICAL: 1800 } as const
