@@ -232,6 +232,29 @@ export default function ChessBoard({ onMove, isPlayerTurn, gameState }: ChessBoa
     setPossibleMoves([])
   }
 
+/**
+ * Generates CSS classes for a chess square
+ * @param isLight - Whether the square is light colored
+ * @param isSelected - Whether the square is currently selected
+ * @param isPossibleMove - Whether the square is a possible move destination
+ * @returns Combined CSS class string
+ */
+const getSquareClasses = (isLight: boolean, isSelected: boolean, isPossibleMove: boolean): string => {
+  const baseClasses = SQUARE_CLASSES.BASE;
+  const colorClasses = isLight ? SQUARE_CLASSES.LIGHT : SQUARE_CLASSES.DARK;
+  const selectedClasses = isSelected ? SQUARE_CLASSES.SELECTED : '';
+  const moveClasses = isPossibleMove ? SQUARE_CLASSES.POSSIBLE_MOVE : '';
+  
+  return `${baseClasses} ${colorClasses} ${selectedClasses} ${moveClasses}`.trim();
+};
+
+  /**
+   * Renders a single chess square with piece and styling
+   * @param square - The piece on this square (if any)
+   * @param rowIndex - The row index of the square
+   * @param colIndex - The column index of the square
+   * @returns JSX element for the chess square
+   */
   const renderSquare = (square: Piece | null, rowIndex: number, colIndex: number) => {
     const squareName = getSquareName(rowIndex, colIndex)
     const isLight = isLightSquare(rowIndex, colIndex)
@@ -242,11 +265,7 @@ export default function ChessBoard({ onMove, isPlayerTurn, gameState }: ChessBoa
     return (
       <div
         key={squareName}
-        className={`w-12 h-12 sm:w-14 sm:h-14 lg:w-16 lg:h-16 flex items-center justify-center cursor-pointer transition-all duration-200 hover:scale-105 ${
-          isLight ? 'bg-amber-50 dark:bg-amber-100' : 'bg-amber-900 dark:bg-amber-800'
-        } ${isSelected ? 'ring-4 ring-blue-500 dark:ring-blue-400' : ''} ${
-          isPossibleMove ? 'ring-4 ring-green-500 dark:ring-green-400' : ''
-        }`}
+        className={getSquareClasses(isLight, isSelected, isPossibleMove)}
         onClick={() => handleSquareClick(squareName)}
         onDragOver={handleDragOver}
         onDrop={(e) => handleDrop(e, squareName)}
