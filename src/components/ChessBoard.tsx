@@ -30,6 +30,16 @@ const CHESS_COLORS = {
 } as const;
 
 /**
+ * Determines if a square should be light colored
+ * @param rowIndex - The row index
+ * @param colIndex - The column index
+ * @returns True if the square should be light colored
+ */
+const isLightSquare = (rowIndex: number, colIndex: number): boolean => {
+  return (rowIndex + colIndex) % 2 === 0;
+};
+
+/**
  * Generates a chess square name from board coordinates
  * @param rowIndex - The row index (0-7)
  * @param colIndex - The column index (0-7)
@@ -215,7 +225,7 @@ export default function ChessBoard({ onMove, isPlayerTurn, gameState }: ChessBoa
 
   const renderSquare = (square: Piece | null, rowIndex: number, colIndex: number) => {
     const squareName = getSquareName(rowIndex, colIndex)
-    const isLight = (rowIndex + colIndex) % 2 === 0
+    const isLight = isLightSquare(rowIndex, colIndex)
     const isSelected = selectedSquare === squareName
     const isPossibleMove = possibleMoves.includes(squareName)
     const piece = chess.get(squareName)
