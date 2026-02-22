@@ -38,8 +38,8 @@ const CHESS_COLORS = {
 const isPawnPromotion = (piece: Piece | null, targetSquare: Square): boolean => {
   return !!(
     piece?.type === 'p' &&
-    ((piece.color === 'w' && targetSquare.endsWith('8')) ||
-      (piece.color === 'b' && targetSquare.endsWith('1')))
+    ((piece.color === CHESS_COLORS.WHITE && targetSquare.endsWith('8')) ||
+      (piece.color === CHESS_COLORS.BLACK && targetSquare.endsWith('1')))
   );
 };
 
