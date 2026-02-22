@@ -46,6 +46,16 @@ const PIECE_CLASSES = {
   NON_DRAGGABLE: 'cursor-default',
 } as const;
 
+// Unicode chess piece symbols
+const PIECE_SYMBOLS = {
+  WHITE: {
+    k: '♔', q: '♕', r: '♖', b: '♗', n: '♘', p: '♙'
+  },
+  BLACK: {
+    k: '♚', q: '♛', r: '♜', b: '♝', n: '♞', p: '♟'
+  }
+} as const;
+
 /**
  * Determines if a square should be light colored
  * @param rowIndex - The row index
@@ -318,15 +328,8 @@ const getSquareClasses = (isLight: boolean, isSelected: boolean, isPossibleMove:
    * @returns Unicode chess piece symbol
    */
   const getPieceSymbol = (type: PieceSymbol, color: 'w' | 'b') => {
-    const symbols = {
-      k: color === 'w' ? '♔' : '♚',
-      q: color === 'w' ? '♕' : '♛',
-      r: color === 'w' ? '♖' : '♜',
-      b: color === 'w' ? '♗' : '♝',
-      n: color === 'w' ? '♘' : '♞',
-      p: color === 'w' ? '♙' : '♟'
-    }
-    return symbols[type] || ''
+    const symbols = color === CHESS_COLORS.WHITE ? PIECE_SYMBOLS.WHITE : PIECE_SYMBOLS.BLACK;
+    return symbols[type] || '';
   }
 
   return (
