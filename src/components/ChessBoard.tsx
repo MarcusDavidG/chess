@@ -18,6 +18,20 @@ interface GameState {
 const BOARD_SIZE = 8;
 const INITIAL_TIMER_MINUTES = 10;
 
+/**
+ * Checks if a move results in pawn promotion
+ * @param piece - The chess piece being moved
+ * @param targetSquare - The destination square
+ * @returns True if the move is a pawn promotion
+ */
+const isPawnPromotion = (piece: Piece | null, targetSquare: Square): boolean => {
+  return !!(
+    piece?.type === 'p' &&
+    ((piece.color === 'w' && targetSquare.endsWith('8')) ||
+      (piece.color === 'b' && targetSquare.endsWith('1')))
+  );
+};
+
 interface ChessBoardProps {
   gameId: number
   onMove: (move: string) => void
@@ -82,13 +96,9 @@ export default function ChessBoard({ onMove, isPlayerTurn, gameState }: ChessBoa
     const fromSquare = e.dataTransfer.getData('square') as Square
     if (fromSquare && isPlayerTurn) {
       const piece = chess.get(fromSquare)
-      const isPawnPromotion = (
-        piece?.type === 'p' &&
-        ((piece.color === 'w' && targetSquare.endsWith('8')) ||
-          (piece.color === 'b' && targetSquare.endsWith('1')))
-      )
+      const isPromotion = isPawnPromotion(piece, targetSquare)
 
-      if (isPawnPromotion) {
+      if (isPromotion) {
         setPromotionSquare(targetSquare)
         setPromotionMove({ from: fromSquare, to: targetSquare })
       } else {
@@ -122,13 +132,9 @@ export default function ChessBoard({ onMove, isPlayerTurn, gameState }: ChessBoa
 
     if (selectedSquare) {
       const piece = chess.get(selectedSquare)
-      const isPawnPromotion = (
-        piece?.type === 'p' &&
-        ((piece.color === 'w' && square.endsWith('8')) ||
-          (piece.color === 'b' && square.endsWith('1')))
-      )
+      const isPromotion = isPawnPromotion(piece, square)
 
-      if (isPawnPromotion) {
+      if (isPromotion) {
         setPromotionSquare(square)
         setPromotionMove({ from: selectedSquare, to: square })
       } else {
