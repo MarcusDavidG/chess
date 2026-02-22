@@ -13,6 +13,17 @@ import { Play, Pause, RotateCcw, Square } from 'lucide-react'
 const INITIAL_TIME_SECONDS = 600; // 10 minutes
 const TIMER_INTERVAL_MS = 1000; // 1 second
 
+/**
+ * Formats time in seconds to MM:SS format
+ * @param seconds - Time in seconds
+ * @returns Formatted time string (MM:SS)
+ */
+const formatTime = (seconds: number): string => {
+  const minutes = Math.floor(seconds / 60);
+  const remainingSeconds = seconds % 60;
+  return `${minutes}:${remainingSeconds.toString().padStart(2, '0')}`;
+};
+
 interface GameRoomProps {
   gameId: number
   contractAddress: string
