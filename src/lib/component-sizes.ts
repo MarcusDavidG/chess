@@ -1,0 +1,1 @@
+export const COMPONENT_SIZES = { XS: 'xs', SM: 'sm', MD: 'md', LG: 'lg', XL: 'xl' } as const
