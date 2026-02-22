@@ -29,6 +29,15 @@ const CHESS_COLORS = {
   BLACK: 'b',
 } as const;
 
+// CSS class constants
+const SQUARE_CLASSES = {
+  BASE: 'w-12 h-12 sm:w-14 sm:h-14 lg:w-16 lg:h-16 flex items-center justify-center cursor-pointer transition-all duration-200 hover:scale-105',
+  LIGHT: 'bg-amber-50 dark:bg-amber-100',
+  DARK: 'bg-amber-900 dark:bg-amber-800',
+  SELECTED: 'ring-4 ring-blue-500 dark:ring-blue-400',
+  POSSIBLE_MOVE: 'ring-4 ring-green-500 dark:ring-green-400',
+} as const;
+
 /**
  * Determines if a square should be light colored
  * @param rowIndex - The row index
