@@ -311,6 +311,12 @@ const getSquareClasses = (isLight: boolean, isSelected: boolean, isPossibleMove:
     )
   }
 
+  /**
+   * Gets the Unicode symbol for a chess piece
+   * @param type - The piece type (k, q, r, b, n, p)
+   * @param color - The piece color ('w' for white, 'b' for black)
+   * @returns Unicode chess piece symbol
+   */
   const getPieceSymbol = (type: PieceSymbol, color: 'w' | 'b') => {
     const symbols = {
       k: color === 'w' ? '♔' : '♚',
