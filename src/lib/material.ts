@@ -1,0 +1,1 @@
+export const MATERIAL_BALANCE = { EQUAL: 0, ADVANTAGE: 1, DISADVANTAGE: -1 } as const
