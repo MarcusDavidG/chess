@@ -169,6 +169,10 @@ export default function ChessBoard({ onMove, isPlayerTurn, gameState }: ChessBoa
     }
   }
 
+  /**
+   * Handles pawn promotion piece selection
+   * @param pieceSymbol - The piece type to promote to (q, r, b, n)
+   */
   const handlePromotionSelect = (pieceSymbol: PieceSymbol) => {
     if (promotionMove) {
       const move = chess.move({
